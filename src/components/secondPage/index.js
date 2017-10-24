@@ -32,14 +32,15 @@ const actions = {
      _deleteToDo(id){
          this.props.deleteToDo(id,this.props.todos)
     }
-     _clickitem(id){
-         console.log('clicked')
+     _clickitem(name){
+         console.log(this.ref)
      }
 
     render() {
         return (
             <div>
                 <input
+                    ref={ref => (this.liRefHolder = ref)}
                     type="text"
                     className="login-input"
                     onChange={this.onTextChange}
@@ -50,7 +51,7 @@ const actions = {
                 </button>
                 <ul>
                     {this.props.todos.map(todo =>
-                        <li key={todo.id} ref={ref => (this.liRefHolder = ref)} onClick={()=>{this._clickitem()}}>
+                        <li key={todo.id} onClick={()=>{this._clickitem(todo.name)}}>
                             {todo.name}
                             <button onClick={() => {this._deleteToDo(todo.id)}}>Delete</button>
                         </li>
