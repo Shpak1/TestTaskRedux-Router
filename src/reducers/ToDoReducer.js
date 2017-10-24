@@ -9,10 +9,9 @@ export default function (state = [], action) {
             ];
 
         case Type.UPDATE:
-            return {
-                ...state,
+            return [
                 ...action.payload
-            };
+            ];
 
         case Type.DELETE:
             return [

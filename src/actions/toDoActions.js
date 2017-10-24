@@ -19,11 +19,14 @@ export const deleteToDo = (id, array) => {
     })
 }
 
-export const updateTodo = (object) => {
-    return((dispatch) =>(
+export const updateTodo = (id, name, array) => {
+    return((dispatch) => {
+        let indexArray = array.findIndex(_id => _id.id === id);
+        let objectToUpdate = {name:name, id : id};
+        let updatedArray = array.splice(indexArray, 1, objectToUpdate);
         dispatch({
-            type:Type.USER_INFO,
-            payload: object
+            type: Type.UPDATE,
+            payload: array
         })
-    ))
+    })
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {addToDo, deleteToDo} from '../../actions/toDoActions'
+import {addToDo, deleteToDo, updateTodo} from '../../actions/toDoActions'
 import { connect } from 'react-redux'
 
 
@@ -9,7 +9,8 @@ const mapStateToProps = ({ todos }) => ({
 
 const actions = {
     addToDo,
-    deleteToDo
+    deleteToDo,
+    updateTodo
 };
 
 
@@ -17,46 +18,72 @@ const actions = {
     constructor(props){
         super(props);
         this._id = 1;
-        this.text;
+        this.updateId;
+        this.clicked = false;
         this.onTextChange = this._onTextChange.bind(this)
+        this.state={
+            input:''
+        }
     }
 
      _onTextChange(e){
-        this.text = e.target.value
+        this.text = e.target.value;
+         this.setState({input:e.target.value})
      }
 
     _addToDo(){
-        this._id++;
-        this.props.addToDo(this.text,this._id)
+        this.props.addToDo(this.state.input,this._id)
+        ++this._id;
+        this.setState({input:''})
+
     }
      _deleteToDo(id){
          this.props.deleteToDo(id,this.props.todos)
     }
-     _clickitem(name){
-         console.log(this.ref)
+     _clickitem(name, id){
+         this.clicked = true;
+         this.updateId = id;
+         this.setState({input:name})
+
+     }
+     _update(){
+         this.props.updateTodo(this.updateId, this.state.input, this.props.todos)
+         this.clicked = false
      }
 
     render() {
         return (
             <div>
                 <input
-                    ref={ref => (this.liRefHolder = ref)}
+                    ref='input'
                     type="text"
                     className="login-input"
                     onChange={this.onTextChange}
                     placeholder='ToDo name'
+                    value = {this.state.input}
                 />
-                <button onClick={() => {this._addToDo()}}>
+                {!this.clicked ?
+                < button onClick={() => {this._addToDo()}}>
                     Add Todo
-                </button>
+                    </button>
+                    :
+                    < button onClick={() => {this._update()}}>
+                        Update
+                    </button>
+                }
                 <ul>
                     {this.props.todos.map(todo =>
-                        <li key={todo.id} onClick={()=>{this._clickitem(todo.name)}}>
-                            {todo.name}
+                        <div  key={todo.id}>
+                            <li onClick={()=>{this._clickitem(todo.name,todo.id)}}>
+                                {todo.name}
+                            </li>
                             <button onClick={() => {this._deleteToDo(todo.id)}}>Delete</button>
-                        </li>
+                        </div>
                     )}
                 </ul>
+                <span><p>About this thing. You can add to list something, delete(when create a new item appear delete button
+                    if you want to update, just click to the item.
+                </p></span>
             </div>
         )
     };
