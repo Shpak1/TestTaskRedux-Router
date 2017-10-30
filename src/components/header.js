@@ -7,11 +7,11 @@ export default class Header extends Component {
         return (
             <div className='navigation'>
                 <div>
-                    <Link to = '/firstPage'>First page</Link>
+                <Link to = '/firstPage'>First page</Link>
                 </div>
-                <div>
-                    <Link to = '/secondPage'>Second page</Link>
-                </div>
+                    <div>
+                <Link to = '/secondPage'>Second page</Link>
+                    </div>
             </div>
         );
     }
