@@ -1,4 +1,4 @@
-import Todo from '../../src/components/secondPage/index';
+import Todo from '../../src/components/second_page';
 import React from 'react';
 import { mount } from 'enzyme';
 

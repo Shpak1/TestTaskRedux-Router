@@ -7,7 +7,7 @@ import fetchMock from 'fetch-mock'
 import expect from 'expect' // You can use any testing library
 
 const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares)
+const mockStore = configureMockStore(middlewares);
 
 describe('async actions', () => {
     afterEach(() => {
@@ -36,7 +36,7 @@ describe('async actions', () => {
     afterEach(() => {
         fetchMock.reset();
         fetchMock.restore()
-    })
+    });
 
     it('creates DELETE TODO when fetching todos has been done', () => {
 
@@ -51,7 +51,7 @@ describe('async actions', () => {
             type: types.DELETE,
             payload: [{name:'name', id : 4}]
         }];
-        const store = mockStore({ todos: [] })
+        const store = mockStore({ todos: [] });
 
         store.dispatch(actions.deleteToDo(id,array)) ;
         expect(store.getActions()).toEqual(expectedAction)
@@ -60,7 +60,7 @@ describe('async actions', () => {
 
 describe('async actions', () => {
     afterEach(() => {
-        fetchMock.reset()
+        fetchMock.reset();
         fetchMock.restore()
     });
 
@@ -80,9 +80,9 @@ describe('async actions', () => {
             payload: [  {name:"Bill", id : id},
                         {name:'name', id : 4}]
         }];
-        const store = mockStore({ todos: [] })
+        const store = mockStore({ todos: [] });
 
         store.dispatch(actions.updateTodo(id,name, array)) ;
         expect(store.getActions()).toEqual(expectedAction)
     })
-})
+});
